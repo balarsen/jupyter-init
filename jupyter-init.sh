@@ -141,6 +141,73 @@ read -r -d '' template_notebook <<"EOF"
 }
 EOF
 
+read -r -d '' gitignore <<"EOF"
+### Python template
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+### IPythonNotebook template
+# Temporary data
+.ipynb_checkpoints/
+# Created by .ignore support plugin (hsz.mobi)
+EOF
+
+
 display_usage() { 
 	echo -e "\nUsage:\n$0 name_to_initialize \n" 
 	} 
@@ -195,11 +262,12 @@ echo $dataRM > "$1/data/README"
 # and the template notebook
 echo "${template_notebook}" > $1/develop/template.ipynb
 echo "${template_notebook}" > $1/deliver/template.ipynb
-
+echo "${gitignore}" > $1/.gitignore
 
 # initialize git
 cd $1
 git init
+git add .gitignore
 for i in "${DIRECTORIES[@]}"; do   # The quotes are necessary here
     echo "adding files in $i to git"
     git add `basename $i`
