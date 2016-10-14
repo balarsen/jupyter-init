@@ -1,0 +1,1 @@
+This directory stores scripts that are written and imported into notebooks\nSaves one from having to type way too much into a notebook\noten best to import these with %import\n
